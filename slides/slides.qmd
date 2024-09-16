@@ -1,0 +1,349 @@
+---
+title: Despliegue de modelos de IA con FastAPI y Docker
+format: clean-revealjs
+html-math-method:
+  method: mathjax
+  url: "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+author:
+  - name: Andrea Gutiérrez Alfaro
+    orcid: 0009-0001-4316-6225
+    email: ag2202633@gmail.com
+    affiliations: Cómputo Inteligente, Centro de Investigación en Computación, IPN
+date: last-modified
+---
+
+## ¿Para quién es este taller?
+
+- Personas que hayan trabajado con Python
+- Cualquiera que tenga interés en IA y desarrollo de software
+- Quien quiera aprender algo nuevo
+
+## ¿Qué no es este taller?
+
+- Un taller aprofundidad, es más para conocer un poco del despliegue
+
+## ¿Por qué este taller?
+
+- Para llevar más allá los modelos una vez de entrenarlos
+
+## ¿De qué va el taller?
+
+1. Crear un modelo con algún framework
+2. Desarrollar una API para dicho modelo
+3. Colocar todo dentro de un contenedor
+
+## AI Model Lifecycle Diagram
+
+<div style="position: relative;">
+  <img src="https://assets.gcore.pro/blog_containerizing_prod/uploads/2024/04/ai-model-lifecycle-1.png" style="width: 100%;">
+
+  <!-- Highlight Part 1 -->
+  <div class="fragment" style="position: absolute; top: 10%; left: 35%; width: 23%; height: 15%; border: 3px solid red;"></div>
+
+  <!-- Highlight Part 2 -->
+  <div class="fragment" style="position: absolute; top: 35%; left:61%; width: 25%; height: 17%; border: 3px solid blue;"></div>
+</div>
+
+# Antes de comenzar
+
+## Instalaciones requeridas
+
+### Requisitos para Windows
+
+::: {.callout-warning}
+
+**Dependencias necesarias**
+
+Por lo general, al desplegar modelos se utiliza más
+Linux y la consola, por lo que trabajaremos con Windows
+Subsystem for Linux 
+
+```powershell
+dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
+
+dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
+
+wsl --install
+
+wsl --update
+
+wsl --install -d Ubuntu-24.04
+```
+:::
+
+##
+
+### Instalaciones necesarias (Docker y pip)
+
+::: {.callout-warning}
+
+**Repositorio**
+
+```bash
+# Add Docker's official GPG key:
+sudo apt-get update
+sudo apt-get install ca-certificates curl
+sudo install -m 0755 -d /etc/apt/keyrings
+sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
+
+# Add the repository to Apt sources:
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt-get update
+```
+**Instalación de Docker**
+
+```bash
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+```
+**Instalación de entorno virtual para pip**
+
+```bash
+sudo apt install python3-venv
+```
+
+:::
+
+
+# Entendiendo el problema {background-color="#40666e"}
+
+##
+
+### Clasificación de plantas
+
+Aunque es algo básico, vamos a intentar conocer el 
+despliegue de modelos con un conjunto bastante conocido.
+
+<div style="text-align: center;">
+  ![Iris Plant](https://upload.wikimedia.org/wikipedia/commons/4/41/Iris_versicolor_3.jpg){width="50%"}
+
+</div>
+
+## El problema de clasificar plantas
+
+El conjunto de datos de Iris es un clásico en el aprendizaje automático. Contiene 150 muestras de flores de iris, divididas en tres especies: **Iris setosa**, **Iris versicolor** e **Iris virginica**.
+
+- **Características:**
+  - Longitud del sépalo
+  - Anchura del sépalo
+  - Longitud del pétalo
+  - Anchura del pétalo
+
+---
+
+## El problema de clasificar plantas {transition="fade"}
+
+- **Desafíos en la clasificación:**
+  - **Solapamiento de clases:** Las especies *Iris versicolor* e *Iris virginica* presentan características similares, lo que dificulta su separación.
+  - **Variabilidad natural:** Existe variación dentro de cada especie, lo que puede complicar la precisión del modelo.
+  - **Dimensionalidad baja:** Solo cuatro características pueden limitar la capacidad del modelo para capturar patrones más complejos.
+  - **Tamaño de muestra reducido:** Con solo 150 muestras, existe el riesgo de sobreajuste si no se maneja adecuadamente.
+
+## Antes de comenzar...
+
+### Requisitos para esta parte
+
+::: {.callout-warning}
+
+**Dependencias necesarias**
+
+**Paquetes de Python (extra)**
+
+```bash
+pip install matplotlib numpy scikit-learn
+```
+Aunque no todos los paquetes son necesarios, como 
+`matlplotlib` nos pueden ser útiles para otras tareas
+:::
+
+## Visualización del conjunto Iris con Matplotlib
+
+```{python}
+#| echo: true
+#| label: fig-pairs
+#| fig-cap: "Pairwise scatterplot" 
+#| fig-asp: 1
+#| output-location: column
+
+
+import matplotlib.pyplot as plt
+import pandas as pd
+from sklearn import datasets
+
+iris = datasets.load_iris()
+df = pd.DataFrame(iris.data, columns=iris.feature_names)
+df['species'] = pd.Categorical.from_codes(iris.target, iris.target_names)
+
+plt.figure(figsize=(8, 6))
+for species in df['species'].unique():
+    subset = df[df['species'] == species]
+    plt.scatter(subset['petal length (cm)'], subset['petal width (cm)'], label=species)
+
+plt.title("Gráfico de dispersión típico del conjunto Iris")
+plt.xlabel("Longitud del pétalo (cm)")
+plt.ylabel("Anchura del pétalo (cm)")
+plt.legend()
+plt.grid(True)
+plt.show()
+```
+
+# Veamos algo de código 
+
+# Todo el código lo pueden encontrar en el repo de Github
+
+## K-Nearest Neighbors
+
+### Pasos (algoritmo del k-NN)
+
+1. Elegir un valor arbitrario para k
+2. Calculamos la distancia con respecto a nuestro elemento desconocido
+
+:::{.callout-note}
+## Distancia euclidea
+
+
+$$
+d(\mathbf{x}, \mathbf{y}) = \sqrt{\sum_{i=1}^{n} (x_i - y_i)^2}
+$$
+:::
+
+3. Ordenar las distancias de menor a mayor (las más cercanas)
+4. Elegir las k distancias más cercas
+5. Contar la etiqueta de dichas distancias y tomar la más repetida como la predicción
+
+
+## Naive Bayes
+
+### Introducción al Algoritmo Naive Bayes
+
+El algoritmo **Naive Bayes** es un clasificador probabilístico basado en el teorema de Bayes con la suposición de independencia entre características.
+
+### Teorema de Bayes
+
+$$
+P(C \mid X) = \frac{P(X \mid C) \cdot P(C)}{P(X)}
+$$
+
+
+# Introducción a las API y FastAPI
+
+## ¿Qué es una API?
+- Una API (Interfaz de Programación de Aplicaciones) es un conjunto de reglas y protocolos que permite que diferentes aplicaciones se comuniquen entre sí.
+
+<div style="text-align: center;">
+  ![Representación API](https://voyager.postman.com/illustration/diagram-what-is-an-api-postman-illustration.svg){width="65%"}
+</div>
+
+## API REST
+- REST (Representational State Transfer) es un estilo arquitectónico para diseñar APIs que utilizan los protocolos HTTP para permitir la comunicación entre cliente y servidor.
+
+### Caracteristicas 
+- Sin estado (Stateless): El servidor no almacena información de estado entre solicitudes.
+- Métodos HTTP Estándar: Utiliza métodos como GET, POST, PUT, DELETE.
+
+##
+
+### Métodos HTTP y Operaciones CRUD
+
+Para interactuar con una API RESTful, utilizamos diferentes métodos HTTP que corresponden a operaciones CRUD:
+
+::: {.table .table-striped .table-bordered .table-hover .w-75 .mx-auto}
+
+| **Método HTTP** | **Acción**               | **Operación CRUD** |
+|-----------------|--------------------------|--------------------|
+| **GET**         | Obtener recursos         | Read               |
+| **POST**        | Crear un nuevo recurso   | Create             |
+| **PUT**         | Actualizar un recurso    | Update             |
+| **DELETE**      | Eliminar un recurso      | Delete             |
+
+:::
+
+## Introducción a FastAPI
+
+- **FastAPI** es un moderno framework web para construir APIs en Python, de alto rendimiento, fácil de usar y con validación automática de datos.
+
+- Es uno de los frameworks más populares para crear API,
+además de que, como su nombre lo indica es muy sencillo crear API
+
+- Al ser muy eficiente y rápido, FastAPI es muy útilizado para desplegar modelos
+
+<div style="text-align: center;">
+  ![FastAPI Logo](https://fastapi.tiangolo.com/img/logo-margin/logo-teal.png){width="30%"}
+</div>
+
+##
+
+### Características principales
+
+- **Alto rendimiento**: Basado en **Starlette** y **Pydantic**, utiliza **asyncio** para manejar múltiples solicitudes de manera eficiente.
+- **Facilidad de uso**: Diseñado para ser fácil de aprender y usar, con una sintaxis intuitiva.
+- **Validación automática**: Utiliza anotaciones de tipos en Python para validar entradas y salidas automáticamente.
+- **Documentación interactiva**: Genera documentación automática y explorable gracias a OpenAPI (Swagger UI y ReDoc).
+- **Basado en estándares**: Sigue los estándares modernos de desarrollo web (OpenAPI, JSON Schema).
+
+---
+
+### Ventajas de FastAPI
+
+- **Desarrollo rápido**: Menos código repetitivo, lo que acelera el desarrollo.
+- **Menos errores**: Validación automática reduce errores comunes.
+- **Excelente rendimiento**: Comparable a NodeJS y Go.
+- **Soporte para asíncronía**: Manejo eficiente de operaciones I/O intensivas.
+
+---
+
+### Comparación con otros frameworks
+
+::: {.table .table-striped .table-bordered .table-hover .w-75 .mx-auto}
+
+| **Característica**      | **FastAPI** | **Flask** | **Django REST** |
+|-------------------------|-------------|-----------|-----------------|
+| Rendimiento             | Alto        | Medio     | Medio           |
+| Fácil de usar           | Sí          | Sí        | Sí              |
+| Validación automática   | Sí          | No        | Sí              |
+| Documentación automática| Sí          | No        | Sí              |
+| Soporte asíncrono       | Sí          | Limitado  | Limitado        |
+
+:::
+
+---
+
+### Ejemplo básico con FastAPI {.scrollable .smaller}
+
+::: {.callout-warning}
+
+**Instalación de FastAPI**
+
+```bash
+pip install "fastapi[standard]"
+```
+:::
+
+```python
+from fastapi import FastAPI
+
+app = FastAPI()
+
+@app.get("/hello")
+def read_root():
+    return {"message": "¡Hola, mundo!"}
+```
+
+## Ejemplo básico con FastAPI {.scrollable .smaller}
+
+```python
+from fastapi import FastAPI
+
+app = FastAPI()
+
+@app.get("/hello")
+def read_root():
+    return {"message": "¡Hola, mundo!"}
+```
+- Explicación:
+  - Importamos `FastAPI` y creamos una instancia de la aplicación.
+  - Utilizamos el decorador `@app.get` para definir una ruta GET en /hello.
+  - La función `read_root` maneja la solicitud y devuelve una respuesta JSON.
