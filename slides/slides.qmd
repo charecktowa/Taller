@@ -347,3 +347,68 @@ def read_root():
   - Importamos `FastAPI` y creamos una instancia de la aplicación.
   - Utilizamos el decorador `@app.get` para definir una ruta GET en /hello.
   - La función `read_root` maneja la solicitud y devuelve una respuesta JSON.
+
+# Algo de código
+
+# Antes de crear la API... ONNX
+
+## **¿Qué es ONNX?**
+
+- **ONNX** (Open Neural Network Exchange) es un formato abierto para representar modelos de aprendizaje automático.
+- Permite la **interoperabilidad** entre diferentes frameworks y herramientas, facilitando el traslado de modelos entre ellos.
+- **Beneficios clave:**
+  - **Portabilidad:** Mueve modelos fácilmente entre distintos entornos.
+  - **Eficiencia:** Optimiza modelos para diferentes hardware y acelera la inferencia.
+  - **Comunidad amplia:** Soportado por empresas y proyectos líderes en IA.
+
+<div style="text-align: center;">
+  ![ONNX Logo](https://onnx.ai/img/onnx.png){width="30%"}
+</div>
+
+---
+
+## **¿Por qué usar ONNX en lugar de pickle?**
+
+### **Limitaciones de pickle:**
+
+- **Dependencia de Python:** Los modelos serializados con pickle solo pueden ser deserializados en Python.
+- **Problemas de seguridad:** Cargar objetos con pickle puede ser inseguro si los datos provienen de fuentes no confiables.
+- **Portabilidad limitada:** Dificultad para utilizar modelos en otros lenguajes o plataformas.
+
+##
+
+### **Ventajas de ONNX:**
+
+- **Interoperabilidad Multilenguaje:**
+  - ONNX permite que los modelos se utilicen en diferentes lenguajes como C++, Java, y más.
+- **Ejecución Optimizada:**
+  - Con **ONNX Runtime**, los modelos pueden ejecutarse de manera más eficiente.
+- **Estandarización:**
+  - Proporciona un estándar común para representar modelos, facilitando el mantenimiento y la colaboración.
+- **Seguridad Mejorada:**
+  - Al ser un formato de modelo, reduce riesgos asociados con la ejecución de código arbitrario.
+
+##
+
+### **Alternativas y Comparación:**
+
+::: {.table .table-striped .table-bordered .table-hover .w-75 .mx-auto}
+
+| **Formato** | **Pros**                                        | **Contras**                                  |
+|-------------|--------------------------------------------------|----------------------------------------------|
+| **Pickle**  | - Fácil de usar en Python<br>- Serialización rápida | - No seguro<br>- No portátil fuera de Python |
+| **Joblib**  | - Optimizado para numpy<br>- Compresión          | - Misma limitación que pickle                |
+| **ONNX**    | - Interoperable<br>- Eficiente<br>- Estándar abierto | - Soporte limitado para algunos modelos específicos |
+
+:::
+
+::: {.callout-warning}
+
+**Instalación de ONNX**
+
+```bash
+pip install skl2onnx onnxmltools onnxruntime
+```
+Estas herramientas nos permiten usar ONNX, algunas utilidades y además convertir modelos de Scikit-Learn en ONNX, lo cual no se puede de "forma nativa"
+:::
+

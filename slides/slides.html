@@ -861,6 +861,120 @@ P(C \mid X) = \frac{P(X \mid C) \cdot P(C)}{P(X)}
 <li>La función <code>read_root</code> maneja la solicitud y devuelve una respuesta JSON.</li>
 </ul></li>
 </ul>
+</section></section>
+<section id="algo-de-código" class="title-slide slide level1 center">
+<h1>Algo de código</h1>
+
+</section>
+
+<section>
+<section id="antes-de-crear-la-api-onnx" class="title-slide slide level1 center">
+<h1>Antes de crear la API… ONNX</h1>
+
+</section>
+<section id="qué-es-onnx" class="slide level2">
+<h2><strong>¿Qué es ONNX?</strong></h2>
+<ul>
+<li><strong>ONNX</strong> (Open Neural Network Exchange) es un formato abierto para representar modelos de aprendizaje automático.</li>
+<li>Permite la <strong>interoperabilidad</strong> entre diferentes frameworks y herramientas, facilitando el traslado de modelos entre ellos.</li>
+<li><strong>Beneficios clave:</strong>
+<ul>
+<li><strong>Portabilidad:</strong> Mueve modelos fácilmente entre distintos entornos.</li>
+<li><strong>Eficiencia:</strong> Optimiza modelos para diferentes hardware y acelera la inferencia.</li>
+<li><strong>Comunidad amplia:</strong> Soportado por empresas y proyectos líderes en IA.</li>
+</ul></li>
+</ul>
+<div style="text-align: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="https://onnx.ai/img/onnx.png" style="width:30.0%"></p>
+<figcaption>ONNX Logo</figcaption>
+</figure>
+</div>
+</div>
+</section>
+<section id="por-qué-usar-onnx-en-lugar-de-pickle" class="slide level2">
+<h2><strong>¿Por qué usar ONNX en lugar de pickle?</strong></h2>
+<h3 id="limitaciones-de-pickle"><strong>Limitaciones de pickle:</strong></h3>
+<ul>
+<li><strong>Dependencia de Python:</strong> Los modelos serializados con pickle solo pueden ser deserializados en Python.</li>
+<li><strong>Problemas de seguridad:</strong> Cargar objetos con pickle puede ser inseguro si los datos provienen de fuentes no confiables.</li>
+<li><strong>Portabilidad limitada:</strong> Dificultad para utilizar modelos en otros lenguajes o plataformas.</li>
+</ul>
+</section>
+<section id="section-4" class="slide level2">
+<h2></h2>
+<h3 id="ventajas-de-onnx"><strong>Ventajas de ONNX:</strong></h3>
+<ul>
+<li><strong>Interoperabilidad Multilenguaje:</strong>
+<ul>
+<li>ONNX permite que los modelos se utilicen en diferentes lenguajes como C++, Java, y más.</li>
+</ul></li>
+<li><strong>Ejecución Optimizada:</strong>
+<ul>
+<li>Con <strong>ONNX Runtime</strong>, los modelos pueden ejecutarse de manera más eficiente.</li>
+</ul></li>
+<li><strong>Estandarización:</strong>
+<ul>
+<li>Proporciona un estándar común para representar modelos, facilitando el mantenimiento y la colaboración.</li>
+</ul></li>
+<li><strong>Seguridad Mejorada:</strong>
+<ul>
+<li>Al ser un formato de modelo, reduce riesgos asociados con la ejecución de código arbitrario.</li>
+</ul></li>
+</ul>
+</section>
+<section id="section-5" class="slide level2">
+<h2></h2>
+<h3 id="alternativas-y-comparación"><strong>Alternativas y Comparación:</strong></h3>
+<div class="table table-striped table-bordered table-hover w-75 mx-auto">
+<table class="caption-top">
+<colgroup>
+<col style="width: 11%">
+<col style="width: 45%">
+<col style="width: 42%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Formato</strong></th>
+<th><strong>Pros</strong></th>
+<th><strong>Contras</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Pickle</strong></td>
+<td>- Fácil de usar en Python<br>- Serialización rápida</td>
+<td>- No seguro<br>- No portátil fuera de Python</td>
+</tr>
+<tr class="even">
+<td><strong>Joblib</strong></td>
+<td>- Optimizado para numpy<br>- Compresión</td>
+<td>- Misma limitación que pickle</td>
+</tr>
+<tr class="odd">
+<td><strong>ONNX</strong></td>
+<td>- Interoperable<br>- Eficiente<br>- Estándar abierto</td>
+<td>- Soporte limitado para algunos modelos específicos</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Warning</strong></p>
+</div>
+<div class="callout-content">
+<p><strong>Instalación de ONNX</strong></p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href=""></a><span class="ex">pip</span> install skl2onnx onnxmltools onnxruntime</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Estas herramientas nos permiten usar ONNX, algunas utilidades y además convertir modelos de Scikit-Learn en ONNX, lo cual no se puede de “forma nativa”</p>
+</div>
+</div>
+</div>
 <div class="quarto-auto-generated-content">
 <div class="footer footer-default">
 
