@@ -13,7 +13,7 @@ date: last-modified
 ---
 
 ## Código y todo
-
+https://github.com/charecktowa/Taller
 
 ## ¿Para quién es este taller?
 
