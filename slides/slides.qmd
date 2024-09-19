@@ -7,10 +7,13 @@ html-math-method:
 author:
   - name: Andrea Gutiérrez Alfaro
     orcid: 0009-0001-4316-6225
-    email: ag2202633@gmail.com
+    email: ag2202633@gmail.com, agutierreza2023@cic.ipn.mx
     affiliations: Cómputo Inteligente, Centro de Investigación en Computación, IPN
 date: last-modified
 ---
+
+## Código y todo
+
 
 ## ¿Para quién es este taller?
 
