@@ -20,7 +20,7 @@ date: last-modified
 
 ## ¿Qué no es este taller?
 
-- Un taller aprofundidad, es más para conocer un poco del despliegue
+- Un taller a profundidad, es más para conocer un poco del despliegue
 
 ## ¿Por qué este taller?
 
@@ -41,7 +41,16 @@ date: last-modified
   <div class="fragment" style="position: absolute; top: 10%; left: 35%; width: 23%; height: 15%; border: 3px solid red;"></div>
 
   <!-- Highlight Part 2 -->
-  <div class="fragment" style="position: absolute; top: 35%; left:61%; width: 25%; height: 17%; border: 3px solid blue;"></div>
+  <div class="fragment" style="position: absolute; top: 35%; left:62.5%; width: 25%; height: 17%; border: 3px solid blue;"></div>
+
+  <!-- Highlight Part 3 -->
+  <div class="fragment" style="position: absolute; top: 71%; left:54%; width: 25%; height: 17%; border: 3px solid green;"></div>  
+
+  <!-- Highlight Part 4 -->
+  <div class="fragment" style="position: absolute; top: 71%; left:15.5%; width: 25%; height: 17%; border: 3px solid orange;"></div>  
+
+  <!-- Highlight Part 5 -->
+  <div class="fragment" style="position: absolute; top: 35%; left:6.9%; width: 25%; height: 17%; border: 3px solid purple;"></div>
 </div>
 
 # Antes de comenzar
@@ -89,7 +98,7 @@ sudo chmod a+r /etc/apt/keyrings/docker.asc
 
 # Add the repository to Apt sources:
 echo \
-  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+  "deb [arch=$(dpkg --print-architecture) vsigned-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
   $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
   sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 sudo apt-get update
@@ -192,6 +201,13 @@ plt.show()
 
 # Veamos algo de código 
 
+<center>
+<div class="side-by-side">
+  <img src="https://media.licdn.com/dms/image/D4E22AQFL9D8PIFkcYw/feedshare-shrink_2048_1536/0/1719824223578?e=2147483647&v=beta&t=3tmej75mgLgpOQ7UkDfHErZw9AeE1Ny7id8ttt7XNUI" alt="Image 1" class="image-400">
+</div>
+</center>
+
+
 # Todo el código lo pueden encontrar en el repo de Github
 
 ## K-Nearest Neighbors
@@ -229,6 +245,14 @@ $$
 
 
 # Introducción a las API y FastAPI
+
+<center>
+<div class="side-by-side">
+  <img src="https://64.media.tumblr.com/e642b66f8548fa1485621bd82d3eacc9/df8c8427627025f7-72/s640x960/af7dc108c6fd722e684f767aa7ad6b9f72f9d9c9.gifv" alt="Image 1" class="image-400">
+</div>
+</center>
+
+
 
 ## ¿Qué es una API?
 - Una API (Interfaz de Programación de Aplicaciones) es un conjunto de reglas y protocolos que permite que diferentes aplicaciones se comuniquen entre sí.
@@ -348,7 +372,13 @@ def read_root():
   - Utilizamos el decorador `@app.get` para definir una ruta GET en /hello.
   - La función `read_root` maneja la solicitud y devuelve una respuesta JSON.
 
-# Algo de código
+# Más código
+
+<center>
+<div class="side-by-side">
+  <img src="https://imageproxy.ifunny.co/resize:640x,quality:90x75/images/d06fac97b1e4549c4288457cbbb5502d4a124fab70c0f924698bf14ad4c00ca0_3.jpg" alt="Image 1" class="image-400">
+</div>
+</center>
 
 # Antes de crear la API... ONNX
 
@@ -362,7 +392,7 @@ def read_root():
   - **Comunidad amplia:** Soportado por empresas y proyectos líderes en IA.
 
 <div style="text-align: center;">
-  ![ONNX Logo](https://onnx.ai/img/onnx.png){width="30%"}
+  ![ONNX Logo](https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/ONNX_logo_main.png/1200px-ONNX_logo_main.png){width="30%"}
 </div>
 
 ---
@@ -412,3 +442,195 @@ pip install skl2onnx onnxmltools onnxruntime
 Estas herramientas nos permiten usar ONNX, algunas utilidades y además convertir modelos de Scikit-Learn en ONNX, lo cual no se puede de "forma nativa"
 :::
 
+# Docker
+
+## **¿Qué es Docker?**
+
+- **Docker** es una plataforma que permite empaquetar aplicaciones y sus dependencias en contenedores, lo que facilita su distribución y ejecución en cualquier entorno.
+- **Contenedores vs. Máquinas Virtuales:**
+  - **Contenedores:** Ligeros, comparten el kernel del sistema operativo, inicio rápido.
+  - **Máquinas Virtuales:** Más pesadas, incluyen un sistema operativo completo, inicio más lento.
+
+<div style="text-align: center;">
+  <img src="https://www.docker.com/wp-content/uploads/2022/03/horizontal-logo-monochromatic-white.png" alt="Docker Logo" style="width: 40%;">
+</div>
+
+---
+
+## **¿Por qué usar Docker?**
+
+- **Portabilidad:**
+  - "Funciona en mi máquina" ahora significa "funciona en cualquier máquina".
+- **Consistencia:**
+  - Mismo entorno en desarrollo, pruebas y producción.
+- **Aislamiento:**
+  - Los contenedores tienen su propio espacio de ejecución, evitando conflictos.
+- **Eficiencia:**
+  - Menos consumo de recursos que las máquinas virtuales.
+
+---
+
+## **Conceptos Clave en Docker**
+
+- **Imagen (Image):**
+  - Plantilla inmutable que incluye todo lo necesario para ejecutar una aplicación.
+- **Contenedor (Container):**
+  - Instancia en ejecución de una imagen.
+- **Dockerfile:**
+  - Archivo de texto que contiene instrucciones para construir una imagen.
+- **Docker Hub:**
+  - Registro público donde puedes almacenar y compartir imágenes Docker.
+
+---
+
+## **Dockerfile: Creando una Imagen para tu Aplicación**
+
+- Un **Dockerfile** define cómo construir una imagen para tu aplicación.
+
+### **Ejemplo de Dockerfile para FastAPI**
+
+```dockerfile
+# Usa una imagen base de Python
+FROM python:3.9-slim
+
+# Establece el directorio de trabajo
+WORKDIR /app
+
+# Copia los archivos de requisitos y de la aplicación
+COPY requirements.txt .
+COPY main.py .
+COPY knn_iris.onnx .
+
+# Instala las dependencias
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Expone el puerto en el que se ejecutará la aplicación
+EXPOSE 8000
+
+# Comando para ejecutar la aplicación
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+```
+
+## Resumen
+1. Crear y entrenar un modelo
+2. Evaluar el modelo
+3. Una vez que el modelo funcione (se haya evaluado) crear una API
+4. Crear los `endpoint`
+5. Probar la aplicación
+6. Crear un contenedor para todo el programa
+
+# Despliegue de redes neuronales
+
+## ¿Qué vamos a hacer?
+1. Repasar brevemente cómo funciona una red neuronal
+2. Crear la API (basado en el código de la última vez)
+3. Dockerizar la aplicación
+4. Consumir la API desde una aplicación
+5. Quizás hacer un despliegue real
+
+## ¿Qué es una red neuronal?
+
+Una **red neuronal artificial** es un modelo computacional inspirado en el cerebro humano, compuesto por **neuronas** conectadas que trabajan en conjunto para resolver problemas.
+
+<div style="text-align: center;">
+  <img src="https://static.sciencelearn.org.nz/images/images/000/005/156/original/ART_Artificial_intelligence_Neural_network_explain_%281%29.png?1678746405" alt="Neural Network Explanation" style="width: 70%;">
+</div>
+
+##
+- **Capas**:
+  - **Entrada**: Recibe los datos.
+  - **Ocultas**: Procesan la información.
+  - **Salida**: Genera el resultado.
+
+
+### ¿Cómo funciona una red neuronal?
+
+1. **Feed Forward**:
+   - Los datos se propagan desde la capa de entrada hasta la de salida.
+   - Cada neurona aplica una **función de activación** a la suma ponderada de sus entradas.
+
+2. **Entrenamiento**:
+   - **Aprendizaje supervisado**: La red ajusta sus pesos en base a ejemplos conocidos.
+   - **Retropropagación**: El error se propaga hacia atrás para actualizar los pesos.
+
+## ImageNet
+
+- **ImageNet** es una base de datos visual masiva diseñada para la investigación en reconocimiento de objetos y visión por computadora.
+- Contiene **más de 14 millones de imágenes** etiquetadas manualmente en **más de 20,000 categorías**.
+- Es la base del **ImageNet Large Scale Visual Recognition Challenge (ILSVRC)**, una competencia anual que ha impulsado avances significativos en el campo.
+
+<div style="text-align: center;">
+  <img src="https://i0.wp.com/syncedreview.com/wp-content/uploads/2020/06/Imagenet.jpg?fit=950%2C407&ssl=1" alt="ImageNet Overview" style="width: 70%;">
+</div>
+
+---
+
+## Importancia de ImageNet
+
+- **Estándar de Referencia**: ImageNet se ha convertido en el estándar para evaluar y comparar modelos de visión por computadora.
+- **Impulso a la Innovación**: Competencias como ILSVRC han llevado al desarrollo de arquitecturas avanzadas como **AlexNet**, **VGG**, **ResNet** y **EfficientNet**.
+- **Diversidad de Datos**: La gran variedad de imágenes y categorías permite que los modelos aprendan características generales aplicables a múltiples tareas.
+
+---
+
+## ¿Cómo ayuda ImageNet en la clasificación de imágenes?
+
+- **Modelos Preentrenados**: Los modelos como **EfficientNet** se entrenan previamente en el conjunto de datos de ImageNet.
+  - Esto significa que ya han aprendido características importantes de una amplia variedad de imágenes.
+- **Transfer Learning (Aprendizaje por Transferencia)**:
+  - Podemos utilizar estos modelos preentrenados y adaptarlos a tareas específicas con menos datos y tiempo de entrenamiento.
+- **Alto Rendimiento**:
+  - Gracias al entrenamiento en ImageNet, los modelos pueden clasificar imágenes con alta precisión incluso en categorías que no fueron parte del entrenamiento original.
+
+---
+
+## ImageNet y EfficientNet en nuestro taller
+
+- **Uso de EfficientNet Preentrenado en ImageNet**:
+  - Aprovecharemos un modelo EfficientNet preentrenado para **clasificar imágenes de manera efectiva**.
+- **Beneficios**:
+  - **Rapidez**: No necesitamos entrenar un modelo desde cero.
+  - **Precisión**: Utilizamos un modelo que ya ha demostrado alto rendimiento en tareas de clasificación.
+- **Implementación Práctica**:
+  - Integraremos el modelo en una API con FastAPI.
+  - Los usuarios podrán subir imágenes y obtener predicciones basadas en el conocimiento adquirido por el modelo a partir de ImageNet.
+
+## EfficientNet: Introducción
+
+- **EfficientNet** es una familia de redes neuronales convolucionales (CNN) que optimiza la eficiencia y precisión.
+- Diseñada para mejorar el rendimiento en tareas de clasificación de imágenes manteniendo bajos los requisitos computacionales.
+
+<div style="text-align: center;">
+  <img src="https://wisdomml.in/wp-content/uploads/2023/03/eff_banner.png" alt="EfficientNet Banner" style="width: 70%;">
+</div>
+
+---
+
+## ¿Qué hace especial a EfficientNet?
+
+- **Escalado compuesto**: EfficientNet introduce un método innovador para escalar los modelos en tres dimensiones:
+  - **Profundidad**: Número de capas en la red.
+  - **Ancho**: Número de canales en cada capa.
+  - **Resolución**: Tamaño de las imágenes de entrada.
+- Este escalado compuesto permite crear modelos más precisos y eficientes que los modelos tradicionales.
+
+
+---
+
+## ¿Por qué es importante EfficientNet?
+
+1. **Eficiencia**:
+   - Utiliza menos parámetros y menor poder computacional en comparación con otras arquitecturas como ResNet o VGG.
+   
+2. **Alto Rendimiento**:
+   - EfficientNet logra un alto rendimiento en benchmarks como **ImageNet**, alcanzando una mejor precisión con menos recursos.
+
+3. **Flexibilidad**:
+   - Puede escalarse para adaptarse a diferentes recursos computacionales, desde dispositivos pequeños hasta grandes servidores.
+
+
+## Implementación práctica
+
+- Usaremos un modelo **EfficientNet preentrenado** en ImageNet.
+- Integraremos el modelo en una **API con FastAPI**.
+- Permitiremos que los usuarios **suban imágenes** y obtengan **predicciones**.

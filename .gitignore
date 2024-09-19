@@ -1,3 +1,13 @@
 .tmp-slides/
 
+__pycache__/
+
+*.onnx
+
 .env/
+
+.nojekyll
+
+web-test/
+
+test/

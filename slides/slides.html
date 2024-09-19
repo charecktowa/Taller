@@ -11,7 +11,7 @@
   <meta name="generator" content="quarto-1.5.57">
 
   <meta name="author" content="Andrea Gutiérrez Alfaro">
-  <meta name="dcterms.date" content="2024-09-16">
+  <meta name="dcterms.date" content="2024-09-19">
   <title>Despliegue de modelos de IA con FastAPI y Docker</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -408,7 +408,7 @@ Andrea Gutiérrez Alfaro <a href="https://orcid.org/0009-0001-4316-6225" class="
     </div>
 </div>
 
-  <p class="date">September 16, 2024</p>
+  <p class="date">September 19, 2024</p>
 </section>
 <section id="para-quién-es-este-taller" class="slide level2">
 <h2>¿Para quién es este taller?</h2>
@@ -421,7 +421,7 @@ Andrea Gutiérrez Alfaro <a href="https://orcid.org/0009-0001-4316-6225" class="
 <section id="qué-no-es-este-taller" class="slide level2">
 <h2>¿Qué no es este taller?</h2>
 <ul>
-<li>Un taller aprofundidad, es más para conocer un poco del despliegue</li>
+<li>Un taller a profundidad, es más para conocer un poco del despliegue</li>
 </ul>
 </section>
 <section id="por-qué-este-taller" class="slide level2">
@@ -447,7 +447,19 @@ Andrea Gutiérrez Alfaro <a href="https://orcid.org/0009-0001-4316-6225" class="
 
 </div>
 <!-- Highlight Part 2 -->
-<div class="fragment" style="position: absolute; top: 35%; left:61%; width: 25%; height: 17%; border: 3px solid blue;">
+<div class="fragment" style="position: absolute; top: 35%; left:62.5%; width: 25%; height: 17%; border: 3px solid blue;">
+
+</div>
+<!-- Highlight Part 3 -->
+<div class="fragment" style="position: absolute; top: 71%; left:54%; width: 25%; height: 17%; border: 3px solid green;">
+
+</div>
+<!-- Highlight Part 4 -->
+<div class="fragment" style="position: absolute; top: 71%; left:15.5%; width: 25%; height: 17%; border: 3px solid orange;">
+
+</div>
+<!-- Highlight Part 5 -->
+<div class="fragment" style="position: absolute; top: 35%; left:6.9%; width: 25%; height: 17%; border: 3px solid purple;">
 
 </div>
 </div>
@@ -506,7 +518,7 @@ Andrea Gutiérrez Alfaro <a href="https://orcid.org/0009-0001-4316-6225" class="
 <span id="cb2-7"><a href=""></a></span>
 <span id="cb2-8"><a href=""></a><span class="co"># Add the repository to Apt sources:</span></span>
 <span id="cb2-9"><a href=""></a><span class="bu">echo</span> <span class="dt">\</span></span>
-<span id="cb2-10"><a href=""></a>  <span class="st">"deb [arch=</span><span class="va">$(</span><span class="ex">dpkg</span> <span class="at">--print-architecture</span><span class="va">)</span><span class="st"> signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu </span><span class="dt">\</span></span>
+<span id="cb2-10"><a href=""></a>  <span class="st">"deb [arch=</span><span class="va">$(</span><span class="ex">dpkg</span> <span class="at">--print-architecture</span><span class="va">)</span><span class="st"> vsigned-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu </span><span class="dt">\</span></span>
 <span id="cb2-11"><a href=""></a><span class="st">  </span><span class="va">$(</span><span class="bu">.</span> /etc/os-release <span class="kw">&amp;&amp;</span> <span class="bu">echo</span> <span class="st">"</span><span class="va">$VERSION_CODENAME</span><span class="st">"</span><span class="va">)</span><span class="st"> stable"</span> <span class="kw">|</span> <span class="dt">\</span></span>
 <span id="cb2-12"><a href=""></a>  <span class="fu">sudo</span> tee /etc/apt/sources.list.d/docker.list <span class="op">&gt;</span> /dev/null</span>
 <span id="cb2-13"><a href=""></a><span class="fu">sudo</span> apt-get update</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -621,7 +633,11 @@ Figure&nbsp;1: Pairwise scatterplot
 </section></section>
 <section id="veamos-algo-de-código" class="title-slide slide level1 center">
 <h1>Veamos algo de código</h1>
-
+<center>
+<div class="side-by-side">
+<p><img src="https://media.licdn.com/dms/image/D4E22AQFL9D8PIFkcYw/feedshare-shrink_2048_1536/0/1719824223578?e=2147483647&amp;v=beta&amp;t=3tmej75mgLgpOQ7UkDfHErZw9AeE1Ny7id8ttt7XNUI" alt="Image 1" class="image-400"></p>
+</div>
+</center>
 </section>
 
 <section>
@@ -669,7 +685,11 @@ P(C \mid X) = \frac{P(X \mid C) \cdot P(C)}{P(X)}
 <section>
 <section id="introducción-a-las-api-y-fastapi" class="title-slide slide level1 center">
 <h1>Introducción a las API y FastAPI</h1>
-
+<center>
+<div class="side-by-side">
+<p><img src="https://64.media.tumblr.com/e642b66f8548fa1485621bd82d3eacc9/df8c8427627025f7-72/s640x960/af7dc108c6fd722e684f767aa7ad6b9f72f9d9c9.gifv" alt="Image 1" class="image-400"></p>
+</div>
+</center>
 </section>
 <section id="qué-es-una-api" class="slide level2">
 <h2>¿Qué es una API?</h2>
@@ -862,9 +882,13 @@ P(C \mid X) = \frac{P(X \mid C) \cdot P(C)}{P(X)}
 </ul></li>
 </ul>
 </section></section>
-<section id="algo-de-código" class="title-slide slide level1 center">
-<h1>Algo de código</h1>
-
+<section id="más-código" class="title-slide slide level1 center">
+<h1>Más código</h1>
+<center>
+<div class="side-by-side">
+<p><img src="https://imageproxy.ifunny.co/resize:640x,quality:90x75/images/d06fac97b1e4549c4288457cbbb5502d4a124fab70c0f924698bf14ad4c00ca0_3.jpg" alt="Image 1" class="image-400"></p>
+</div>
+</center>
 </section>
 
 <section>
@@ -887,7 +911,7 @@ P(C \mid X) = \frac{P(X \mid C) \cdot P(C)}{P(X)}
 <div style="text-align: center;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="https://onnx.ai/img/onnx.png" style="width:30.0%"></p>
+<p><img data-src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/ONNX_logo_main.png/1200px-ONNX_logo_main.png" style="width:30.0%"></p>
 <figcaption>ONNX Logo</figcaption>
 </figure>
 </div>
@@ -975,6 +999,252 @@ P(C \mid X) = \frac{P(X \mid C) \cdot P(C)}{P(X)}
 </div>
 </div>
 </div>
+</section></section>
+<section>
+<section id="docker" class="title-slide slide level1 center">
+<h1>Docker</h1>
+
+</section>
+<section id="qué-es-docker" class="slide level2">
+<h2><strong>¿Qué es Docker?</strong></h2>
+<ul>
+<li><strong>Docker</strong> es una plataforma que permite empaquetar aplicaciones y sus dependencias en contenedores, lo que facilita su distribución y ejecución en cualquier entorno.</li>
+<li><strong>Contenedores vs.&nbsp;Máquinas Virtuales:</strong>
+<ul>
+<li><strong>Contenedores:</strong> Ligeros, comparten el kernel del sistema operativo, inicio rápido.</li>
+<li><strong>Máquinas Virtuales:</strong> Más pesadas, incluyen un sistema operativo completo, inicio más lento.</li>
+</ul></li>
+</ul>
+<div style="text-align: center;">
+<p><img src="https://www.docker.com/wp-content/uploads/2022/03/horizontal-logo-monochromatic-white.png" alt="Docker Logo" style="width: 40%;"></p>
+</div>
+</section>
+<section id="por-qué-usar-docker" class="slide level2">
+<h2><strong>¿Por qué usar Docker?</strong></h2>
+<ul>
+<li><strong>Portabilidad:</strong>
+<ul>
+<li>“Funciona en mi máquina” ahora significa “funciona en cualquier máquina”.</li>
+</ul></li>
+<li><strong>Consistencia:</strong>
+<ul>
+<li>Mismo entorno en desarrollo, pruebas y producción.</li>
+</ul></li>
+<li><strong>Aislamiento:</strong>
+<ul>
+<li>Los contenedores tienen su propio espacio de ejecución, evitando conflictos.</li>
+</ul></li>
+<li><strong>Eficiencia:</strong>
+<ul>
+<li>Menos consumo de recursos que las máquinas virtuales.</li>
+</ul></li>
+</ul>
+</section>
+<section id="conceptos-clave-en-docker" class="slide level2">
+<h2><strong>Conceptos Clave en Docker</strong></h2>
+<ul>
+<li><strong>Imagen (Image):</strong>
+<ul>
+<li>Plantilla inmutable que incluye todo lo necesario para ejecutar una aplicación.</li>
+</ul></li>
+<li><strong>Contenedor (Container):</strong>
+<ul>
+<li>Instancia en ejecución de una imagen.</li>
+</ul></li>
+<li><strong>Dockerfile:</strong>
+<ul>
+<li>Archivo de texto que contiene instrucciones para construir una imagen.</li>
+</ul></li>
+<li><strong>Docker Hub:</strong>
+<ul>
+<li>Registro público donde puedes almacenar y compartir imágenes Docker.</li>
+</ul></li>
+</ul>
+</section>
+<section id="dockerfile-creando-una-imagen-para-tu-aplicación" class="slide level2">
+<h2><strong>Dockerfile: Creando una Imagen para tu Aplicación</strong></h2>
+<ul>
+<li>Un <strong>Dockerfile</strong> define cómo construir una imagen para tu aplicación.</li>
+</ul>
+<h3 id="ejemplo-de-dockerfile-para-fastapi"><strong>Ejemplo de Dockerfile para FastAPI</strong></h3>
+<div class="sourceCode" id="cb11"><pre class="sourceCode numberSource dockerfile number-lines code-with-copy"><code class="sourceCode dockerfile"><span id="cb11-1"><a href=""></a><span class="co"># Usa una imagen base de Python</span></span>
+<span id="cb11-2"><a href=""></a><span class="kw">FROM</span> python:3.9-slim</span>
+<span id="cb11-3"><a href=""></a></span>
+<span id="cb11-4"><a href=""></a><span class="co"># Establece el directorio de trabajo</span></span>
+<span id="cb11-5"><a href=""></a><span class="kw">WORKDIR</span> /app</span>
+<span id="cb11-6"><a href=""></a></span>
+<span id="cb11-7"><a href=""></a><span class="co"># Copia los archivos de requisitos y de la aplicación</span></span>
+<span id="cb11-8"><a href=""></a><span class="kw">COPY</span> requirements.txt .</span>
+<span id="cb11-9"><a href=""></a><span class="kw">COPY</span> main.py .</span>
+<span id="cb11-10"><a href=""></a><span class="kw">COPY</span> knn_iris.onnx .</span>
+<span id="cb11-11"><a href=""></a></span>
+<span id="cb11-12"><a href=""></a><span class="co"># Instala las dependencias</span></span>
+<span id="cb11-13"><a href=""></a><span class="kw">RUN</span> <span class="ex">pip</span> install <span class="at">--no-cache-dir</span> <span class="at">-r</span> requirements.txt</span>
+<span id="cb11-14"><a href=""></a></span>
+<span id="cb11-15"><a href=""></a><span class="co"># Expone el puerto en el que se ejecutará la aplicación</span></span>
+<span id="cb11-16"><a href=""></a><span class="kw">EXPOSE</span> 8000</span>
+<span id="cb11-17"><a href=""></a></span>
+<span id="cb11-18"><a href=""></a><span class="co"># Comando para ejecutar la aplicación</span></span>
+<span id="cb11-19"><a href=""></a><span class="kw">CMD</span> [<span class="st">"uvicorn"</span>, <span class="st">"main:app"</span>, <span class="st">"--host"</span>, <span class="st">"0.0.0.0"</span>, <span class="st">"--port"</span>, <span class="st">"8000"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="resumen" class="slide level2">
+<h2>Resumen</h2>
+<ol type="1">
+<li>Crear y entrenar un modelo</li>
+<li>Evaluar el modelo</li>
+<li>Una vez que el modelo funcione (se haya evaluado) crear una API</li>
+<li>Crear los <code>endpoint</code></li>
+<li>Probar la aplicación</li>
+<li>Crear un contenedor para todo el programa</li>
+</ol>
+</section></section>
+<section>
+<section id="despliegue-de-redes-neuronales" class="title-slide slide level1 center">
+<h1>Despliegue de redes neuronales</h1>
+
+</section>
+<section id="qué-vamos-a-hacer" class="slide level2">
+<h2>¿Qué vamos a hacer?</h2>
+<ol type="1">
+<li>Repasar brevemente cómo funciona una red neuronal</li>
+<li>Crear la API (basado en el código de la última vez)</li>
+<li>Dockerizar la aplicación</li>
+<li>Consumir la API desde una aplicación</li>
+<li>Quizás hacer un despliegue real</li>
+</ol>
+</section>
+<section id="qué-es-una-red-neuronal" class="slide level2">
+<h2>¿Qué es una red neuronal?</h2>
+<p>Una <strong>red neuronal artificial</strong> es un modelo computacional inspirado en el cerebro humano, compuesto por <strong>neuronas</strong> conectadas que trabajan en conjunto para resolver problemas.</p>
+<div style="text-align: center;">
+<p><img src="https://static.sciencelearn.org.nz/images/images/000/005/156/original/ART_Artificial_intelligence_Neural_network_explain_%281%29.png?1678746405" alt="Neural Network Explanation" style="width: 70%;"></p>
+</div>
+</section>
+<section id="section-6" class="slide level2">
+<h2></h2>
+<ul>
+<li><strong>Capas</strong>:
+<ul>
+<li><strong>Entrada</strong>: Recibe los datos.</li>
+<li><strong>Ocultas</strong>: Procesan la información.</li>
+<li><strong>Salida</strong>: Genera el resultado.</li>
+</ul></li>
+</ul>
+<h3 id="cómo-funciona-una-red-neuronal">¿Cómo funciona una red neuronal?</h3>
+<ol type="1">
+<li><strong>Feed Forward</strong>:
+<ul>
+<li>Los datos se propagan desde la capa de entrada hasta la de salida.</li>
+<li>Cada neurona aplica una <strong>función de activación</strong> a la suma ponderada de sus entradas.</li>
+</ul></li>
+<li><strong>Entrenamiento</strong>:
+<ul>
+<li><strong>Aprendizaje supervisado</strong>: La red ajusta sus pesos en base a ejemplos conocidos.</li>
+<li><strong>Retropropagación</strong>: El error se propaga hacia atrás para actualizar los pesos.</li>
+</ul></li>
+</ol>
+</section>
+<section id="imagenet" class="slide level2">
+<h2>ImageNet</h2>
+<ul>
+<li><strong>ImageNet</strong> es una base de datos visual masiva diseñada para la investigación en reconocimiento de objetos y visión por computadora.</li>
+<li>Contiene <strong>más de 14 millones de imágenes</strong> etiquetadas manualmente en <strong>más de 20,000 categorías</strong>.</li>
+<li>Es la base del <strong>ImageNet Large Scale Visual Recognition Challenge (ILSVRC)</strong>, una competencia anual que ha impulsado avances significativos en el campo.</li>
+</ul>
+<div style="text-align: center;">
+<p><img src="https://i0.wp.com/syncedreview.com/wp-content/uploads/2020/06/Imagenet.jpg?fit=950%2C407&amp;ssl=1" alt="ImageNet Overview" style="width: 70%;"></p>
+</div>
+</section>
+<section id="importancia-de-imagenet" class="slide level2">
+<h2>Importancia de ImageNet</h2>
+<ul>
+<li><strong>Estándar de Referencia</strong>: ImageNet se ha convertido en el estándar para evaluar y comparar modelos de visión por computadora.</li>
+<li><strong>Impulso a la Innovación</strong>: Competencias como ILSVRC han llevado al desarrollo de arquitecturas avanzadas como <strong>AlexNet</strong>, <strong>VGG</strong>, <strong>ResNet</strong> y <strong>EfficientNet</strong>.</li>
+<li><strong>Diversidad de Datos</strong>: La gran variedad de imágenes y categorías permite que los modelos aprendan características generales aplicables a múltiples tareas.</li>
+</ul>
+</section>
+<section id="cómo-ayuda-imagenet-en-la-clasificación-de-imágenes" class="slide level2">
+<h2>¿Cómo ayuda ImageNet en la clasificación de imágenes?</h2>
+<ul>
+<li><strong>Modelos Preentrenados</strong>: Los modelos como <strong>EfficientNet</strong> se entrenan previamente en el conjunto de datos de ImageNet.
+<ul>
+<li>Esto significa que ya han aprendido características importantes de una amplia variedad de imágenes.</li>
+</ul></li>
+<li><strong>Transfer Learning (Aprendizaje por Transferencia)</strong>:
+<ul>
+<li>Podemos utilizar estos modelos preentrenados y adaptarlos a tareas específicas con menos datos y tiempo de entrenamiento.</li>
+</ul></li>
+<li><strong>Alto Rendimiento</strong>:
+<ul>
+<li>Gracias al entrenamiento en ImageNet, los modelos pueden clasificar imágenes con alta precisión incluso en categorías que no fueron parte del entrenamiento original.</li>
+</ul></li>
+</ul>
+</section>
+<section id="imagenet-y-efficientnet-en-nuestro-taller" class="slide level2">
+<h2>ImageNet y EfficientNet en nuestro taller</h2>
+<ul>
+<li><strong>Uso de EfficientNet Preentrenado en ImageNet</strong>:
+<ul>
+<li>Aprovecharemos un modelo EfficientNet preentrenado para <strong>clasificar imágenes de manera efectiva</strong>.</li>
+</ul></li>
+<li><strong>Beneficios</strong>:
+<ul>
+<li><strong>Rapidez</strong>: No necesitamos entrenar un modelo desde cero.</li>
+<li><strong>Precisión</strong>: Utilizamos un modelo que ya ha demostrado alto rendimiento en tareas de clasificación.</li>
+</ul></li>
+<li><strong>Implementación Práctica</strong>:
+<ul>
+<li>Integraremos el modelo en una API con FastAPI.</li>
+<li>Los usuarios podrán subir imágenes y obtener predicciones basadas en el conocimiento adquirido por el modelo a partir de ImageNet.</li>
+</ul></li>
+</ul>
+</section>
+<section id="efficientnet-introducción" class="slide level2">
+<h2>EfficientNet: Introducción</h2>
+<ul>
+<li><strong>EfficientNet</strong> es una familia de redes neuronales convolucionales (CNN) que optimiza la eficiencia y precisión.</li>
+<li>Diseñada para mejorar el rendimiento en tareas de clasificación de imágenes manteniendo bajos los requisitos computacionales.</li>
+</ul>
+<div style="text-align: center;">
+<p><img src="https://wisdomml.in/wp-content/uploads/2023/03/eff_banner.png" alt="EfficientNet Banner" style="width: 70%;"></p>
+</div>
+</section>
+<section id="qué-hace-especial-a-efficientnet" class="slide level2">
+<h2>¿Qué hace especial a EfficientNet?</h2>
+<ul>
+<li><strong>Escalado compuesto</strong>: EfficientNet introduce un método innovador para escalar los modelos en tres dimensiones:
+<ul>
+<li><strong>Profundidad</strong>: Número de capas en la red.</li>
+<li><strong>Ancho</strong>: Número de canales en cada capa.</li>
+<li><strong>Resolución</strong>: Tamaño de las imágenes de entrada.</li>
+</ul></li>
+<li>Este escalado compuesto permite crear modelos más precisos y eficientes que los modelos tradicionales.</li>
+</ul>
+</section>
+<section id="por-qué-es-importante-efficientnet" class="slide level2">
+<h2>¿Por qué es importante EfficientNet?</h2>
+<ol type="1">
+<li><strong>Eficiencia</strong>:
+<ul>
+<li>Utiliza menos parámetros y menor poder computacional en comparación con otras arquitecturas como ResNet o VGG.</li>
+</ul></li>
+<li><strong>Alto Rendimiento</strong>:
+<ul>
+<li>EfficientNet logra un alto rendimiento en benchmarks como <strong>ImageNet</strong>, alcanzando una mejor precisión con menos recursos.</li>
+</ul></li>
+<li><strong>Flexibilidad</strong>:
+<ul>
+<li>Puede escalarse para adaptarse a diferentes recursos computacionales, desde dispositivos pequeños hasta grandes servidores.</li>
+</ul></li>
+</ol>
+</section>
+<section id="implementación-práctica" class="slide level2">
+<h2>Implementación práctica</h2>
+<ul>
+<li>Usaremos un modelo <strong>EfficientNet preentrenado</strong> en ImageNet.</li>
+<li>Integraremos el modelo en una <strong>API con FastAPI</strong>.</li>
+<li>Permitiremos que los usuarios <strong>suban imágenes</strong> y obtengan <strong>predicciones</strong>.</li>
+</ul>
 <div class="quarto-auto-generated-content">
 <div class="footer footer-default">
 

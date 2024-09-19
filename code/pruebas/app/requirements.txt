@@ -1,0 +1,13 @@
+matplotlib
+
+fastapi[all]
+
+numpy
+
+scikit-learn
+
+skl2onnx 
+
+onnxmltools 
+
+onnxruntime

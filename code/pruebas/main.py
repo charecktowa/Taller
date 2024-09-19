@@ -1,72 +1,66 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
-import numpy as np
-import onnxruntime as rt
-from sklearn.datasets import load_iris
+from typing import Optional, List
 
-# Cargar el conjunto de datos Iris para obtener los nombres de las clases
-iris = load_iris()
-target_names = iris.target_names.tolist()
-
-# Crear la instancia de la aplicación FastAPI
 app = FastAPI()
 
-# Cargar el modelo ONNX al iniciar la aplicación
-sess = rt.InferenceSession("knn_iris.onnx")
-input_name = sess.get_inputs()[0].name
-label_name = sess.get_outputs()[0].name
+
+# Define the Item model
+class Item(BaseModel):
+    id: int
+    name: str
+    description: Optional[str] = None
+    price: float
+    tax: Optional[float] = None
 
 
-# Definir el modelo de datos de entrada
-class IrisFeatures(BaseModel):
-    sepal_length: float
-    sepal_width: float
-    petal_length: float
-    petal_width: float
+# In-memory "database"
+items = []
 
 
-@app.post("/predited")
-def predict(
-    sepal_width: float, sepal_length: float, petal_length: float, petal_width: float
-) -> str:
-    # Convertir los datos de entrada a un arreglo numpy
-    data = np.array(
-        [[sepal_length, sepal_width, petal_length, petal_width]], dtype=np.float32
-    )
-
-    # Realizar la predicción usando el modelo ONNX
-    pred_onx = sess.run([label_name], {input_name: data})[0]
-
-    # Obtener el nombre de la clase predicha
-    class_idx = int(pred_onx[0])
-    class_name = target_names[class_idx]
-
-    # Devolver la predicción como respuesta JSON
-    return class_name
+# Create an item (POST)
+@app.post("/items/", response_model=Item)
+async def create_item(item: Item):
+    # Check if item with the same id already exists
+    for existing_item in items:
+        if existing_item.id == item.id:
+            raise HTTPException(
+                status_code=400, detail="Item with this ID already exists"
+            )
+    items.append(item)
+    return item
 
 
-# Definir el endpoint para realizar predicciones
-@app.post("/predict")
-def predict_iris(features: IrisFeatures):
-    # Convertir los datos de entrada a un arreglo numpy
-    data = np.array(
-        [
-            [
-                features.sepal_length,
-                features.sepal_width,
-                features.petal_length,
-                features.petal_width,
-            ]
-        ],
-        dtype=np.float32,
-    )
+# Read all items (GET)
+@app.get("/items/", response_model=List[Item])
+async def read_items():
+    return items
 
-    # Realizar la predicción usando el modelo ONNX
-    pred_onx = sess.run([label_name], {input_name: data})[0]
 
-    # Obtener el nombre de la clase predicha
-    class_idx = int(pred_onx[0])
-    class_name = target_names[class_idx]
+# Read a single item by ID (GET)
+@app.get("/items/{item_id}", response_model=Item)
+async def read_item(item_id: int):
+    for item in items:
+        if item.id == item_id:
+            return item
+    raise HTTPException(status_code=404, detail="Item not found")
 
-    # Devolver la predicción como respuesta JSON
-    return {"prediction": class_name}
+
+# Update an item (PUT)
+@app.put("/items/{item_id}", response_model=Item)
+async def update_item(item_id: int, updated_item: Item):
+    for index, item in enumerate(items):
+        if item.id == item_id:
+            items[index] = updated_item
+            return updated_item
+    raise HTTPException(status_code=404, detail="Item not found")
+
+
+# Delete an item (DELETE)
+@app.delete("/items/{item_id}")
+async def delete_item(item_id: int):
+    for index, item in enumerate(items):
+        if item.id == item_id:
+            items.pop(index)
+            return {"detail": "Item deleted"}
+    raise HTTPException(status_code=404, detail="Item not found")
